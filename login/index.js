@@ -9,6 +9,8 @@ async function post(url, data)
     }).then(response => response.json());
 }
 
+/////////
+
 async function correct(option)
 {
     option.className = "form-control";

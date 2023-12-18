@@ -1,4 +1,4 @@
-async function getRequest(site) 
+async function get(site) 
 {
   try 
   {
@@ -23,6 +23,8 @@ async function post(url, data)
         }),
     }).then(response => response.json());
 }
+
+///////////////////
 
 async function correct(option)
 {
@@ -180,7 +182,7 @@ async function isCorrect(option, regularExpression, length = 10)
 
 async function recursiveCreationOfFields(adresses, numberOfIndex = 0)
 {
-    const partOfAdress = await getRequest(`https://food-delivery.kreosoft.ru/api/address/search?parentObjectId=${adresses[numberOfIndex]['objectId']}`);
+    const partOfAdress = await get(`https://food-delivery.kreosoft.ru/api/address/search?parentObjectId=${adresses[numberOfIndex]['objectId']}`);
     const adressPartInForm = document.querySelector(".container.border.rounded");
     const adressPart = document.createElement("div");
     adressPart.className = "form-group";
@@ -284,7 +286,7 @@ async function createFieldToInput(adresses)
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const adress = await getRequest("https://food-delivery.kreosoft.ru/api/address/search");
+    const adress = await get("https://food-delivery.kreosoft.ru/api/address/search");
     let guidOfBuilding;
     IMask(
         document.getElementById('Phone'),

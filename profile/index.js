@@ -1,12 +1,4 @@
-async function getWithHeaders(url, token)
-{
-    return fetch(url, {
-        method: 'GET',
-        headers: new Headers({
-            "Authorization": `Bearer ${token}`
-        }),
-    }).then(response => response.json());
-}
+import { getWithToken } from '../Methods/Methods.js';
 
 async function post(url, data=null)
 {
@@ -29,7 +21,7 @@ async function postWithHeaders(url, token)
     });
 }
 
-async function getRequest(site) 
+async function get(site) 
 {
   try 
   {
@@ -55,6 +47,8 @@ async function put(url, data, token)
         }),
     });
 }
+
+/////////////////////
 
 async function createNavbarForUnauthorized()
 {
@@ -94,7 +88,7 @@ async function createNavbarForUnauthorized()
 
 async function createNavbarForAuthorized(profile)
 {
-    let dishesInCart = await getWithHeaders(`https://food-delivery.kreosoft.ru/api/basket`, localStorage['token']);
+    let dishesInCart = await getWithToken(`https://food-delivery.kreosoft.ru/api/basket`, localStorage['token']);
 
     const ulElement = document.querySelector(".navbar-nav.mr-auto");
 
@@ -200,7 +194,7 @@ async function createNavbar(profile=null)
 
 async function recursiveCreationOfFields(adresses, numberOfIndex = 0)
 {
-    const partOfAdress = await getRequest(`https://food-delivery.kreosoft.ru/api/address/search?parentObjectId=${adresses[numberOfIndex]['objectId']}`);
+    const partOfAdress = await get(`https://food-delivery.kreosoft.ru/api/address/search?parentObjectId=${adresses[numberOfIndex]['objectId']}`);
     const adressPartInForm = document.querySelector(".container.border.rounded");
     const adressPart = document.createElement("div");
     adressPart.className = "form-group";
@@ -307,7 +301,7 @@ async function createFieldToInput(adresses)
 async function createRecursiveNewPart(adresses, numberOfIndex = 0)
 {
 
-    const partOfAdress = await getRequest(`https://food-delivery.kreosoft.ru/api/address/search?parentObjectId=${adresses}`);
+    const partOfAdress = await get(`https://food-delivery.kreosoft.ru/api/address/search?parentObjectId=${adresses}`);
     const adressPartInForm = document.querySelector(".container.border.rounded");
     const adressPart = document.createElement("div");
     adressPart.className = "form-group";
@@ -389,7 +383,7 @@ async function createInfoFields(adresses, allPartsOfAddress)
         {
             if (i > 0)
             {
-                adresses = await getRequest(`https://food-delivery.kreosoft.ru/api/address/search?parentObjectId=${allPartsOfAddress[i-1]['objectId']}`);
+                adresses = await get(`https://food-delivery.kreosoft.ru/api/address/search?parentObjectId=${allPartsOfAddress[i-1]['objectId']}`);
             }
 
             const adressPart = document.createElement("div");
@@ -420,7 +414,7 @@ async function createInfoFields(adresses, allPartsOfAddress)
 
                 const selectedOption = event.target.options[event.target.selectedIndex];
                 
-                let adres = await getRequest(`https://food-delivery.kreosoft.ru/api/address/getaddresschain?objectGuid=${selectedOption.getAttribute('guid')}`);
+                let adres = await get(`https://food-delivery.kreosoft.ru/api/address/getaddresschain?objectGuid=${selectedOption.getAttribute('guid')}`);
 
                 for (let j = adressPartInForm.childNodes.length-1; j > i+3; j--)
                 {
@@ -492,7 +486,7 @@ async function createMainPart(profile)
           )
     }
 
-    const adress = await getRequest("https://food-delivery.kreosoft.ru/api/address/search");
+    const adress = await get("https://food-delivery.kreosoft.ru/api/address/search");
     let guidOfBuilding;
 
     document.getElementById("save").addEventListener("click", () => {
@@ -527,7 +521,7 @@ async function createMainPart(profile)
     if (profile["address"] !== null)
     {
         guidOfBuilding = profile["address"];
-        allPartsOfAddress = await getRequest(`https://food-delivery.kreosoft.ru/api/address/getaddresschain?objectGuid=${profile["address"]}`);
+        allPartsOfAddress = await get(`https://food-delivery.kreosoft.ru/api/address/getaddresschain?objectGuid=${profile["address"]}`);
         guidOfBuilding = await createInfoFields(adress, allPartsOfAddress);
     }
     else
@@ -559,7 +553,7 @@ document.addEventListener("DOMContentLoaded", async() => {
                 tokenExpiry = new Date().getTime() + 30 * 60 * 1000;
                 localStorage.setItem("token", token);
                 localStorage.setItem("tokenExpiry", tokenExpiry);
-                profile = await getWithHeaders(`https://food-delivery.kreosoft.ru/api/account/profile`, token);
+                profile = await getWithToken(`https://food-delivery.kreosoft.ru/api/account/profile`, token);
                 
             }
             else
@@ -578,7 +572,7 @@ document.addEventListener("DOMContentLoaded", async() => {
         }
         else
         {
-            profile  = await getWithHeaders(`https://food-delivery.kreosoft.ru/api/account/profile`, token);
+            profile  = await getWithToken(`https://food-delivery.kreosoft.ru/api/account/profile`, token);
         }
     }
 

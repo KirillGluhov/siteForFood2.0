@@ -1,3 +1,5 @@
+import { getWithToken } from '../Methods/Methods.js';
+
 async function post(url, data=null)
 {
     return fetch(url, {
@@ -5,16 +7,6 @@ async function post(url, data=null)
         body: JSON.stringify(data),
         headers: new Headers({
             'Content-Type': 'application/json'
-        }),
-    }).then(response => response.json());
-}
-
-async function getWithHeaders(url, token)
-{
-    return fetch(url, {
-        method: 'GET',
-        headers: new Headers({
-            "Authorization": `Bearer ${token}`
         }),
     }).then(response => response.json());
 }
@@ -39,7 +31,7 @@ async function deleteWithHeaders(url, token)
     });
 }
 
-async function getRequest(site) 
+async function get(site) 
 {
   try 
   {
@@ -53,6 +45,8 @@ async function getRequest(site)
     throw error;
   }
 }
+
+//////////////////////
 
 async function createNavbarForUnauthorized()
 {
@@ -92,7 +86,7 @@ async function createNavbarForUnauthorized()
 
 async function createNavbarForAuthorized(profile)
 {
-    let dishesInCart = await getWithHeaders(`https://food-delivery.kreosoft.ru/api/basket`, localStorage['token']);
+    let dishesInCart = await getWithToken(`https://food-delivery.kreosoft.ru/api/basket`, localStorage['token']);
 
     const ulElement = document.querySelector(".navbar-nav.mr-auto");
 
@@ -221,10 +215,10 @@ async function createMainPart(profile=null)
 
     if (profile !== null)
     {
-        dishesInCart = await getWithHeaders(`https://food-delivery.kreosoft.ru/api/basket`, localStorage['token']);
+        dishesInCart = await getWithToken(`https://food-delivery.kreosoft.ru/api/basket`, localStorage['token']);
     }
 
-    let dishes = await getRequest(`https://food-delivery.kreosoft.ru/api/dish`);
+    let dishes = await get(`https://food-delivery.kreosoft.ru/api/dish`);
 
     const rowWithCards = document.getElementById("mainPart");
 
@@ -486,10 +480,10 @@ async function createMainPartWithPage(profile=null, page=1)
     let dishesInCart;
     if (profile !== null)
     {
-        dishesInCart = await getWithHeaders(`https://food-delivery.kreosoft.ru/api/basket`, localStorage['token']);
+        dishesInCart = await getWithToken(`https://food-delivery.kreosoft.ru/api/basket`, localStorage['token']);
     }
 
-    let dishes = await getRequest(`https://food-delivery.kreosoft.ru/api/dish?page=${page}`);
+    let dishes = await get(`https://food-delivery.kreosoft.ru/api/dish?page=${page}`);
     const rowWithCards = document.getElementById("mainPart");
 
     for (let i = 0; i < dishes['dishes'].length; i++)
@@ -744,7 +738,7 @@ async function createMainPartWithPage(profile=null, page=1)
 
 async function createNavigation(numberOfPage=1)
 {
-    let maxPage = await getRequest(`https://food-delivery.kreosoft.ru/api/dish`);
+    let maxPage = await get(`https://food-delivery.kreosoft.ru/api/dish`);
     let maxNumberOfPage = maxPage['pagination']["count"];
 
     const pagination = document.querySelector(".pagination");
@@ -918,7 +912,7 @@ async function createNavigation(numberOfPage=1)
 async function createNavigationForAttribute(numberOfPage=1, attribute)
 {
 
-    let maxPage = await getRequest(`https://food-delivery.kreosoft.ru/api/dish?${attribute}`);
+    let maxPage = await get(`https://food-delivery.kreosoft.ru/api/dish?${attribute}`);
     let maxNumberOfPage = maxPage['pagination']["count"];
 
     const pagination = document.querySelector(".pagination");
@@ -1171,10 +1165,10 @@ async function createMainPartWithAttribute(profile=null, page=1, attribute)
     let dishesInCart;
     if (profile !== null)
     {
-        dishesInCart = await getWithHeaders(`https://food-delivery.kreosoft.ru/api/basket`, localStorage['token']);
+        dishesInCart = await getWithToken(`https://food-delivery.kreosoft.ru/api/basket`, localStorage['token']);
     }
 
-    let dishes = await getRequest(`https://food-delivery.kreosoft.ru/api/dish?${attribute}`);
+    let dishes = await get(`https://food-delivery.kreosoft.ru/api/dish?${attribute}`);
     const rowWithCards = document.getElementById("mainPart");
 
     for (let i = 0; i < dishes['dishes'].length; i++)
@@ -1442,10 +1436,10 @@ async function createMainPartWithAttributeAndPage(profile=null, page=1, attribut
     let dishesInCart;
     if (profile !== null)
     {
-        dishesInCart = await getWithHeaders(`https://food-delivery.kreosoft.ru/api/basket`, localStorage['token']);
+        dishesInCart = await getWithToken(`https://food-delivery.kreosoft.ru/api/basket`, localStorage['token']);
     }
 
-    let dishes = await getRequest(`https://food-delivery.kreosoft.ru/api/dish?${attribute}&page=${page}`);
+    let dishes = await get(`https://food-delivery.kreosoft.ru/api/dish?${attribute}&page=${page}`);
     const rowWithCards = document.getElementById("mainPart");
 
     for (let i = 0; i < dishes['dishes'].length; i++)
@@ -1707,7 +1701,7 @@ async function createMainPartWithAttributeAndPage(profile=null, page=1, attribut
 async function createNavigationForAttributeAndPage(numberOfPage, attribute)
 {
 
-    let maxPage = await getRequest(`https://food-delivery.kreosoft.ru/api/dish?${attribute}&page=${numberOfPage}`);
+    let maxPage = await get(`https://food-delivery.kreosoft.ru/api/dish?${attribute}&page=${numberOfPage}`);
     let maxNumberOfPage = maxPage['pagination']["count"];
 
     const pagination = document.querySelector(".pagination");
@@ -1967,7 +1961,7 @@ document.addEventListener("DOMContentLoaded", async() => {
                 tokenExpiry = new Date().getTime() + 30 * 60 * 1000;
                 localStorage.setItem("token", token);
                 localStorage.setItem("tokenExpiry", tokenExpiry);
-                profile = await getWithHeaders(`https://food-delivery.kreosoft.ru/api/account/profile`, token);
+                profile = await getWithToken(`https://food-delivery.kreosoft.ru/api/account/profile`, token);
                 
             }
             else
@@ -1986,7 +1980,7 @@ document.addEventListener("DOMContentLoaded", async() => {
         }
         else
         {
-            profile  = await getWithHeaders(`https://food-delivery.kreosoft.ru/api/account/profile`, token);
+            profile  = await getWithToken(`https://food-delivery.kreosoft.ru/api/account/profile`, token);
         }
     }
 

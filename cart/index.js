@@ -1,12 +1,4 @@
-async function getWithHeaders(url, token)
-{
-    return fetch(url, {
-        method: 'GET',
-        headers: new Headers({
-            "Authorization": `Bearer ${token}`
-        }),
-    }).then(response => response.json());
-}
+import { getWithToken } from '../Methods/Methods.js';
 
 async function post(url, data=null)
 {
@@ -38,6 +30,8 @@ async function deleteWithHeaders(url, token)
         }),
     });
 }
+
+////////////////////////
 
 async function createNavbarForUnauthorized()
 {
@@ -77,7 +71,7 @@ async function createNavbarForUnauthorized()
 
 async function createNavbarForAuthorized(profile)
 {
-    let dishesInCart = await getWithHeaders(`https://food-delivery.kreosoft.ru/api/basket`, localStorage['token']);
+    let dishesInCart = await getWithToken(`https://food-delivery.kreosoft.ru/api/basket`, localStorage['token']);
 
     const ulElement = document.querySelector(".navbar-nav.mr-auto");
 
@@ -388,7 +382,7 @@ document.addEventListener("DOMContentLoaded", async() => {
                 tokenExpiry = new Date().getTime() + 30 * 60 * 1000;
                 localStorage.setItem("token", token);
                 localStorage.setItem("tokenExpiry", tokenExpiry);
-                profile = await getWithHeaders(`https://food-delivery.kreosoft.ru/api/account/profile`, token);
+                profile = await getWithToken(`https://food-delivery.kreosoft.ru/api/account/profile`, token);
                 
             }
             else
@@ -407,8 +401,8 @@ document.addEventListener("DOMContentLoaded", async() => {
         }
         else
         {
-            profile  = await getWithHeaders(`https://food-delivery.kreosoft.ru/api/account/profile`, token);
-            dishesInCart = await getWithHeaders(`https://food-delivery.kreosoft.ru/api/basket`, localStorage['token']);
+            profile  = await getWithToken(`https://food-delivery.kreosoft.ru/api/account/profile`, token);
+            dishesInCart = await getWithToken(`https://food-delivery.kreosoft.ru/api/basket`, localStorage['token']);
         }
     }
 
