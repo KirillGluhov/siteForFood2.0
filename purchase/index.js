@@ -1,44 +1,7 @@
 import { getWithToken } from '../Methods/Methods.js';
-
-async function post(url, data=null)
-{
-    return fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: new Headers({
-            'Content-Type': 'application/json'
-        }),
-    }).then(response => response.json());
-}
-
-async function postInfo(url, data, token)
-{
-    return fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: new Headers({
-            'Content-Type': 'application/json',
-            "Authorization": `Bearer ${token}`
-        }),
-    });
-}
-
-async function get(site) 
-{
-  try 
-  {
-    const response = await fetch(site);
-    const data = await response.json();
-    return data;
-  } 
-  catch (error) 
-  {
-    console.error(error);
-    throw error;
-  }
-}
-
-//////////////////////
+import { get } from '../Methods/Methods.js';
+import { post } from '../Methods/Methods.js';
+import { postWithTokenAndData } from '../Methods/Methods.js';
 
 async function createNavbarForUnauthorized()
 {
@@ -539,7 +502,7 @@ async function createMainPart(profile)
             "addressId" : guidOfBuilding || null
         }
 
-        postInfo(`https://food-delivery.kreosoft.ru/api/order`, orderInfo, localStorage['token']).then((data) => {
+        postWithTokenAndData(`https://food-delivery.kreosoft.ru/api/order`, orderInfo, localStorage['token']).then((data) => {
             
         if (data['status'] == 200)
         {

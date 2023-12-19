@@ -1,28 +1,6 @@
 import { getWithToken } from '../Methods/Methods.js';
-
-async function post(url, data=null)
-{
-    return fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: new Headers({
-            'Content-Type': 'application/json'
-        }),
-    }).then(response => response.json());
-}
-
-async function postInfo(url, token)
-{
-    return fetch(url, {
-        method: 'POST',
-        headers: new Headers({
-            'Content-Type': 'application/json',
-            "Authorization": `Bearer ${token}`
-        }),
-    });
-}
-
-///////////////
+import { post } from '../Methods/Methods.js';
+import { postWithToken } from '../Methods/Methods.js';
 
 async function createNavbarForUnauthorized()
 {
@@ -244,7 +222,7 @@ async function createMain(profile)
             buttonToConfirm.textContent = "Подтвердить доставку";
             buttonToConfirm.addEventListener("click", async() => {
 
-                const result = await postInfo(`https://food-delivery.kreosoft.ru/api/order/${allOrders[i]['id']}/status`, localStorage['token']).then((data) => {
+                const result = await postWithToken(`https://food-delivery.kreosoft.ru/api/order/${allOrders[i]['id']}/status`, localStorage['token']).then((data) => {
 
                     if (data['status'] === 200)
                     {

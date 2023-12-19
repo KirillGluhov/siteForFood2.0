@@ -1,40 +1,7 @@
 import { getWithToken } from '../Methods/Methods.js';
-
-async function post(url, data=null)
-{
-    return fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: new Headers({
-            'Content-Type': 'application/json'
-        }),
-    }).then(response => response.json());
-}
-
-async function postWithHeaders(url, token)
-{
-    return fetch(url, {
-        method: 'POST',
-        headers: new Headers({
-            "Authorization": `Bearer ${token}`
-        }),
-    });
-}
-
-async function get(site) 
-{
-  try 
-  {
-    const response = await fetch(site);
-    const data = await response.json();
-    return data;
-  } 
-  catch (error) 
-  {
-    console.error(error);
-    throw error;
-  }
-}
+import { get } from '../Methods/Methods.js';
+import { post } from '../Methods/Methods.js';
+import { postWithToken } from '../Methods/Methods.js';
 
 async function put(url, data, token)
 {
@@ -164,7 +131,7 @@ async function createNavbarForAuthorized(profile)
     buttonExit.addEventListener("click", async() => {
 
         let token = localStorage.getItem("token");
-        let unauthorization = await postWithHeaders(`https://food-delivery.kreosoft.ru/api/account/logout`, token);
+        let unauthorization = await postWithToken(`https://food-delivery.kreosoft.ru/api/account/logout`, token);
         localStorage.removeItem("token");
         localStorage.removeItem("tokenExpiry");
         localStorage.removeItem("password");

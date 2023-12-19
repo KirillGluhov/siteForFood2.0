@@ -1,37 +1,7 @@
 import { getWithToken } from '../Methods/Methods.js';
-
-async function post(url, data=null)
-{
-    return fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: new Headers({
-            'Content-Type': 'application/json'
-        }),
-    }).then(response => response.json());
-}
-
-async function postWithHeaders(url, token)
-{
-    return fetch(url, {
-        method: 'POST',
-        headers: new Headers({
-            "Authorization": `Bearer ${token}`
-        }),
-    });
-}
-
-async function deleteWithHeaders(url, token)
-{
-    return fetch(url, {
-        method: 'DELETE',
-        headers: new Headers({
-            "Authorization": `Bearer ${token}`
-        }),
-    });
-}
-
-////////////////////////
+import { post } from '../Methods/Methods.js';
+import { postWithToken } from '../Methods/Methods.js';
+import { deleteWithToken } from '../Methods/Methods.js';
 
 async function createNavbarForUnauthorized()
 {
@@ -147,7 +117,7 @@ async function createNavbarForAuthorized(profile)
     buttonExit.addEventListener("click", async() => {
 
         let token = localStorage.getItem("token");
-        let unauthorization = await postWithHeaders(`https://food-delivery.kreosoft.ru/api/account/logout`, token);
+        let unauthorization = await postWithToken(`https://food-delivery.kreosoft.ru/api/account/logout`, token);
         localStorage.removeItem("token");
         localStorage.removeItem("tokenExpiry");
         localStorage.removeItem("password");
@@ -277,7 +247,7 @@ async function createMainPart(profile, dishesInCart)
         document.querySelector(".list-group").appendChild(item);
 
         plus.addEventListener("click", async() => {
-            const addDish = await postWithHeaders(`https://food-delivery.kreosoft.ru/api/basket/dish/${dishesInCart[i]['id']}`, localStorage['token']).then(() => {
+            const addDish = await postWithToken(`https://food-delivery.kreosoft.ru/api/basket/dish/${dishesInCart[i]['id']}`, localStorage['token']).then(() => {
 
             document.querySelector(".badge.badge-success").textContent = `${parseInt(document.querySelector(".badge.badge-success").textContent) + 1}`;
             numberOfDishes.textContent = `${parseInt(numberOfDishes.textContent) + 1}`;
@@ -299,7 +269,7 @@ async function createMainPart(profile, dishesInCart)
 
         minus.addEventListener("click", async() => {
 
-            const deleteDish = await deleteWithHeaders(`https://food-delivery.kreosoft.ru/api/basket/dish/${dishesInCart[i]['id']}?increase=true`, localStorage['token']).then(() => {
+            const deleteDish = await deleteWithToken(`https://food-delivery.kreosoft.ru/api/basket/dish/${dishesInCart[i]['id']}?increase=true`, localStorage['token']).then(() => {
 
                 numberOfDishes.textContent = `${parseInt(numberOfDishes.textContent) - 1}`;
                 document.querySelector(".badge.badge-success").textContent = `${parseInt(document.querySelector(".badge.badge-success").textContent) - 1}`;
@@ -332,7 +302,7 @@ async function createMainPart(profile, dishesInCart)
 
         deleteButton.addEventListener("click", async() => {
 
-            const deleteDish = await deleteWithHeaders(`https://food-delivery.kreosoft.ru/api/basket/dish/${dishesInCart[i]['id']}`, localStorage['token']).then(() => {
+            const deleteDish = await deleteWithToken(`https://food-delivery.kreosoft.ru/api/basket/dish/${dishesInCart[i]['id']}`, localStorage['token']).then(() => {
                 document.querySelector(".badge.badge-success").textContent = `${parseInt(document.querySelector(".badge.badge-success").textContent) - parseInt(numberOfDishes.textContent)}`; //
                 item.remove();
 

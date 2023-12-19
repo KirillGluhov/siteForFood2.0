@@ -1,30 +1,5 @@
-async function get(site) 
-{
-  try 
-  {
-    const response = await fetch(site);
-    const data = await response.json();
-    return data;
-  } 
-  catch (error) 
-  {
-    console.error(error);
-    throw error;
-  }
-}
-
-async function post(url, data)
-{
-    return fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: new Headers({
-            'Content-Type': 'application/json'
-        }),
-    }).then(response => response.json());
-}
-
-///////////////////
+import { get } from '../Methods/Methods.js';
+import { post } from '../Methods/Methods.js';
 
 async function correct(option)
 {
