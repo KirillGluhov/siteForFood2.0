@@ -126,3 +126,15 @@ export async function createNavbarForAuthorized(profile)
     ulElementSecond.appendChild(liMail);
     ulElementSecond.appendChild(liExit);
 }
+
+export async function createNavbar(profile=null)
+{
+    if (profile === null)
+    {
+        createNavbarForUnauthorized();
+    }
+    else
+    {
+        createNavbarForAuthorized(profile);
+    }
+}

@@ -3,20 +3,7 @@ import { get } from '../Methods/Methods.js';
 import { post } from '../Methods/Methods.js';
 import { put } from '../Methods/Methods.js';
 
-import { createNavbarForUnauthorized } from './Methods/Create.js';
-import { createNavbarForAuthorized } from '../Methods/Create.js';
-
-async function createNavbar(profile=null)
-{
-    if (profile === null)
-    {
-        createNavbarForUnauthorized();
-    }
-    else
-    {
-        createNavbarForAuthorized(profile);
-    }
-}
+import { createNavbar } from '../Methods/Create.js';
 
 async function recursiveCreationOfFields(adresses, numberOfIndex = 0)
 {

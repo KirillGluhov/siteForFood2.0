@@ -2,20 +2,7 @@ import { getWithToken } from '../Methods/Methods.js';
 import { post } from '../Methods/Methods.js';
 import { postWithToken } from '../Methods/Methods.js';
 
-import { createNavbarForUnauthorized } from './Methods/Create.js';
-import { createNavbarForAuthorized } from '../Methods/Create.js';
-
-async function createNavbar(profile=null)
-{
-    if (profile === null)
-    {
-        createNavbarForUnauthorized();
-    }
-    else
-    {
-        createNavbarForAuthorized(profile);
-    }
-}
+import { createNavbar } from '../Methods/Create.js';
 
 async function createMain(profile)
 {
