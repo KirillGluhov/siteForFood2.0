@@ -43,8 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     {
                         localStorage.setItem("token", `${data['token']}`);
                         localStorage.setItem("tokenExpiry", new Date().getTime() + 30 * 60 * 1000);
-                        localStorage.setItem("email", email.value);
-                        localStorage.setItem("password", password.value);
                         location.assign("http://localhost/");
                     }
 

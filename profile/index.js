@@ -353,27 +353,6 @@ document.addEventListener("DOMContentLoaded", async() => {
     {
         localStorage.removeItem("token");
         localStorage.removeItem("tokenExpiry");
-
-        const data = {
-            "email": localStorage.getItem("email"),
-            "password": localStorage.getItem("password"),
-        }
-
-        await post('https://food-delivery.kreosoft.ru/api/account/login', data).then(async(data) => {
-            if (data['token'] !== undefined)
-            {
-                token = data['token'];
-                tokenExpiry = new Date().getTime() + 30 * 60 * 1000;
-                localStorage.setItem("token", token);
-                localStorage.setItem("tokenExpiry", tokenExpiry);
-                profile = await getWithToken(`https://food-delivery.kreosoft.ru/api/account/profile`, token);
-                
-            }
-            else
-            {
-                profile = null;
-            }
-        });
     }
     else
     {
