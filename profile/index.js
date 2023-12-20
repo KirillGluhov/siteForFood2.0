@@ -1,9 +1,8 @@
-import { getWithToken } from '../Methods/Methods.js';
 import { get } from '../Methods/Methods.js';
-import { post } from '../Methods/Methods.js';
 import { put } from '../Methods/Methods.js';
 
 import { createNavbar } from '../Methods/Create.js';
+import { getMainInformation } from '../Methods/GetInfo.js';
 
 async function recursiveCreationOfFields(adresses, numberOfIndex = 0)
 {
@@ -347,26 +346,8 @@ document.addEventListener("DOMContentLoaded", async() => {
 
     let profile;
     let token;
-    let tokenExpiry = localStorage.getItem("tokenExpiry");
 
-    if (tokenExpiry && new Date().getTime() > parseInt(tokenExpiry)) 
-    {
-        localStorage.removeItem("token");
-        localStorage.removeItem("tokenExpiry");
-    }
-    else
-    {
-        token = localStorage.getItem("token");
-
-        if (token === null)
-        {
-            profile = null;
-        }
-        else
-        {
-            profile  = await getWithToken(`https://food-delivery.kreosoft.ru/api/account/profile`, token);
-        }
-    }
+    getMainInformation(token, profile);
 
     if (localStorage['isDisplay'] === "true")
     {

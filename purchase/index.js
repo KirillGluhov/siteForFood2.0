@@ -1,9 +1,9 @@
 import { getWithToken } from '../Methods/Methods.js';
 import { get } from '../Methods/Methods.js';
-import { post } from '../Methods/Methods.js';
 import { postWithTokenAndData } from '../Methods/Methods.js';
 
 import { createNavbar } from '../Methods/Create.js';
+import { getMainInformation } from '../Methods/GetInfo.js';
 
 async function recursiveCreationOfFields(adresses, numberOfIndex = 0)
 {
@@ -330,8 +330,6 @@ async function createMainPart(profile)
 
     document.getElementById("price").innerHTML = `<b>Стоимость заказа:</b> ${priceOfAllDishes} руб.`;
 
-    
-
     document.getElementById("confirm").addEventListener("click", () => {
 
         const childNodesForAdress = document.getElementById("adressBlock").childNodes;
@@ -402,26 +400,8 @@ document.addEventListener("DOMContentLoaded", async() => {
 
     let profile;
     let token;
-    let tokenExpiry = localStorage.getItem("tokenExpiry");
 
-    if (tokenExpiry && new Date().getTime() > parseInt(tokenExpiry)) 
-    {
-        localStorage.removeItem("token");
-        localStorage.removeItem("tokenExpiry");
-    }
-    else
-    {
-        token = localStorage.getItem("token");
-
-        if (token === null)
-        {
-            profile = null;
-        }
-        else
-        {
-            profile  = await getWithToken(`https://food-delivery.kreosoft.ru/api/account/profile`, token);
-        }
-    }
+    getMainInformation(token, profile);
 
     createNavbar(profile);
     createMainPart(profile);

@@ -1,10 +1,10 @@
 import { getWithToken } from '../Methods/Methods.js';
 import { get } from '../Methods/Methods.js';
-import { post } from '../Methods/Methods.js';
 import { postWithToken } from '../Methods/Methods.js';
 import { deleteWithToken } from './Methods/Methods.js';
 
 import { createNavbar } from '../Methods/Create.js';
+import { getMainInformation } from '../Methods/GetInfo.js';
 
 function categoryOfDish(category)
 {
@@ -1486,7 +1486,6 @@ async function createMainPartWithAttributeAndPage(profile=null, page=1, attribut
 
                 });
             });
-
        }
 
        overlayForImage.appendChild(divForLeaf);
@@ -1509,10 +1508,6 @@ async function createMainPartWithAttributeAndPage(profile=null, page=1, attribut
        rowWithCards.appendChild(card);
     }
 }
-
-
-
-
 
 async function createNavigationForAttributeAndPage(numberOfPage, attribute)
 {
@@ -1758,26 +1753,8 @@ document.addEventListener("DOMContentLoaded", async() => {
 
     let profile;
     let token;
-    let tokenExpiry = localStorage.getItem("tokenExpiry");
 
-    if (tokenExpiry && new Date().getTime() > parseInt(tokenExpiry)) 
-    {
-        localStorage.removeItem("token");
-        localStorage.removeItem("tokenExpiry");
-    }
-    else
-    {
-        token = localStorage.getItem("token");
-
-        if (token === null)
-        {
-            profile = null;
-        }
-        else
-        {
-            profile  = await getWithToken(`https://food-delivery.kreosoft.ru/api/account/profile`, token);
-        }
-    }
+    getMainInformation(token, profile);
 
     createNavbar(profile);
 

@@ -45,9 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         localStorage.setItem("tokenExpiry", new Date().getTime() + 30 * 60 * 1000);
                         location.assign("http://localhost/");
                     }
-
                 }
-
             })
             .catch((error) => {
                 console.log(error);
