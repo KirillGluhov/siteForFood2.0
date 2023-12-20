@@ -47,7 +47,7 @@ export async function postWithTokenAndData(url, data, token)
     });
 }
 
-// method - метод, требующий наличие url - то, куда отправляется запрос и опционально data - тело запроса
+// method - метод, требующий наличие url - то, куда отправляется запрос, data - тело запроса и token - токен
 
 export async function get(url) 
 {
@@ -73,4 +73,16 @@ export async function post(url, data=null)
             'Content-Type': 'application/json'
         }),
     }).then(response => response.json());
+}
+
+export async function put(url, data, token)
+{
+    return fetch(url, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${token}`
+        }),
+    });
 }

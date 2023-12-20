@@ -2,56 +2,9 @@ import { getWithToken } from '../Methods/Methods.js';
 import { get } from '../Methods/Methods.js';
 import { post } from '../Methods/Methods.js';
 import { postWithToken } from '../Methods/Methods.js';
+import { put } from '../Methods/Methods.js';
 
-async function put(url, data, token)
-{
-    return fetch(url, {
-        method: 'PUT',
-        body: JSON.stringify(data),
-        headers: new Headers({
-            'Content-Type': 'application/json',
-            "Authorization": `Bearer ${token}`
-        }),
-    });
-}
-
-/////////////////////
-
-async function createNavbarForUnauthorized()
-{
-    const ulElement = document.querySelector(".navbar-nav.mr-0");
-
-    const liElement = document.createElement("li");
-    liElement.className = "nav-item active";
-
-    const buttonEnter = document.createElement("button");
-    buttonEnter.className = "btn btn-light"
-    buttonEnter.type = "button";
-    buttonEnter.onclick = "";
-    buttonEnter.id = "enter";
-    buttonEnter.textContent = "Войти";
-    buttonEnter.addEventListener("click", async() => {
-
-        location.assign("http://localhost/login/");
-    });
-
-    liElement.appendChild(buttonEnter);
-    ulElement.appendChild(liElement);
-
-    const ulElementSecond = document.querySelector(".navbar-nav.mr-auto");
-
-    const liElementSecond = document.createElement("li");
-    liElementSecond.className = "nav-item active";
-
-    const aElementSecond = document.createElement("a");
-    aElementSecond.className = "nav-link bebra";
-    aElementSecond.href = "http://localhost/";
-    aElementSecond.textContent = "Меню";
-
-    liElementSecond.appendChild(aElementSecond);
-    ulElementSecond.appendChild(liElementSecond);
-    
-}
+import { createNavbarForUnauthorized } from './Methods/Create.js';
 
 async function createNavbarForAuthorized(profile)
 {
