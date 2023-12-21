@@ -1,3 +1,6 @@
+import { getWithToken } from "../Methods/Methods.js";
+import { postWithToken } from "../Methods/Methods.js";
+
 export async function createNavbarForUnauthorized()
 {
     const ulElement = document.querySelector(".navbar-nav.mr-0");

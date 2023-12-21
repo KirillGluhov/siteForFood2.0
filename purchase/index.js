@@ -3,6 +3,7 @@ import { get } from '../Methods/Methods.js';
 import { postWithTokenAndData } from '../Methods/Methods.js';
 
 import { createNavbar } from '../Methods/Create.js';
+
 import { getMainInformation } from '../Methods/GetInfo.js';
 
 async function recursiveCreationOfFields(adresses, numberOfIndex = 0)
@@ -386,6 +387,7 @@ async function createMainPart(profile)
 
     if (profile["address"] !== null)
     {
+        let allPartsOfAddress;
         guidOfBuilding = profile["address"];
         allPartsOfAddress = await get(`https://food-delivery.kreosoft.ru/api/address/getaddresschain?objectGuid=${profile["address"]}`);
         guidOfBuilding = await createInfoFields(adress, allPartsOfAddress);
@@ -401,7 +403,12 @@ document.addEventListener("DOMContentLoaded", async() => {
     let profile;
     let token;
 
-    getMainInformation(token, profile);
+    let json = await getMainInformation(token, profile);
+
+    profile = json["profile"];
+    token = json["token"];
+
+    console.log(profile);
 
     createNavbar(profile);
     createMainPart(profile);

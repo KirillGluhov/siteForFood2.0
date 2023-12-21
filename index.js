@@ -1,10 +1,11 @@
-import { getWithToken } from '../Methods/Methods.js';
-import { get } from '../Methods/Methods.js';
-import { postWithToken } from '../Methods/Methods.js';
-import { deleteWithToken } from './Methods/Methods.js';
+import { getWithToken } from '/Methods/Methods.js';
+import { get } from '/Methods/Methods.js';
+import { postWithToken } from '/Methods/Methods.js';
+import { deleteWithToken } from '/Methods/Methods.js';
 
-import { createNavbar } from '../Methods/Create.js';
-import { getMainInformation } from '../Methods/GetInfo.js';
+import { createNavbar } from '/Methods/Create.js';
+
+import { getMainInformation } from '/Methods/GetInfo.js';
 
 function categoryOfDish(category)
 {
@@ -1754,7 +1755,10 @@ document.addEventListener("DOMContentLoaded", async() => {
     let profile;
     let token;
 
-    getMainInformation(token, profile);
+    let json = await getMainInformation(token, profile);
+
+    profile = json["profile"];
+    token = json["token"];
 
     createNavbar(profile);
 

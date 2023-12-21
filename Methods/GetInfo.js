@@ -1,3 +1,5 @@
+import { getWithToken } from "../Methods/Methods.js";
+
 export async function getMainInformation(token, profile, dishesInCart = null)
 {
     if (localStorage.getItem("tokenExpiry") && new Date().getTime() > parseInt(localStorage.getItem("tokenExpiry"))) 
@@ -22,5 +24,11 @@ export async function getMainInformation(token, profile, dishesInCart = null)
                 dishesInCart = await getWithToken(`https://food-delivery.kreosoft.ru/api/basket`, localStorage['token']);
             }
         }
+    }
+
+    return {
+        "token": token,
+        "profile": profile,
+        "dishesInCart": dishesInCart
     }
 }

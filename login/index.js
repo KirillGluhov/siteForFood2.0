@@ -3,7 +3,6 @@ import { post } from '../Methods/Methods.js';
 import { correct } from '../Methods/ChangeValidity.js';
 import { incorrect } from '../Methods/ChangeValidity.js';
 import { isCorrect } from '../Methods/ChangeValidity.js';
-
 import { passwordCheck } from '../Methods/ChangeValidity.js';
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -51,17 +51,12 @@ export async function postWithTokenAndData(url, data, token)
 
 export async function get(url) 
 {
-    try 
-    {
-        const response = await fetch(url);
-        const data = await response.json();
-        return data;
-    } 
-    catch (error) 
-    {
-        console.error(error);
-        throw error;
-    }
+    return fetch(url, {
+        method: 'GET',
+        headers: new Headers({
+            'Content-Type': 'application/json',
+        }),
+    }).then(response => response.json());
 }
 
 export async function post(url, data=null)

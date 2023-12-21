@@ -192,9 +192,13 @@ document.addEventListener("DOMContentLoaded", async() => {
     let profile;
     let token;
 
-    let dishesInCart
+    let dishesInCart = 1;
 
-    getMainInformation(token, profile, dishesInCart);
+    let json = await getMainInformation(token, profile, dishesInCart);
+
+    profile = json["profile"];
+    token = json["token"];
+    dishesInCart = json["dishesInCart"];
 
     createNavbar(profile, dishesInCart);
     createMainPart(profile, dishesInCart);
