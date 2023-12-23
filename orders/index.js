@@ -96,8 +96,6 @@ async function createMain(profile)
                         costAndMaybeConfirmDeliveryInnerWrapper.className = "d-inline-flex flex-column justify-content-end";
                     }
                 });
-
-                
             });
 
             costAndMaybeConfirmDeliveryInnerWrapper.appendChild(buttonToConfirm);

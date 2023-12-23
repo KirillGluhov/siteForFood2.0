@@ -25,6 +25,573 @@ function categoryOfDish(category)
     }
 }
 
+async function createNavigation(numberOfPage=1)
+{
+    let maxPage = await get(`https://food-delivery.kreosoft.ru/api/dish`);
+    let maxNumberOfPage = maxPage['pagination']["count"];
+
+    const pagination = document.querySelector(".pagination");
+
+    if (numberOfPage === 1 && maxNumberOfPage >= 2)
+    {
+
+        const current = document.createElement("li");
+        current.className = "page-item active";
+        const aCurrent = document.createElement("a");
+        aCurrent.className = "page-link";
+        aCurrent.textContent = numberOfPage;
+        current.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?page=${numberOfPage}`;
+        });
+
+        const next = document.createElement("li");
+        next.className = "page-item";
+        const aNext = document.createElement("a");
+        aNext.className = "page-link";
+        aNext.textContent = numberOfPage+1
+        next.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?page=${numberOfPage+1}`;
+        });
+
+        const nextClone = document.createElement("li");
+        nextClone.className = "page-item";
+        const aNextClone = document.createElement("a");
+        aNextClone.className = "page-link";
+        aNextClone.textContent = "»";
+        nextClone.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?page=${numberOfPage+1}`;
+        });
+
+        current.appendChild(aCurrent);
+        next.appendChild(aNext);
+        nextClone.appendChild(aNextClone);
+
+        pagination.appendChild(current);
+        pagination.appendChild(next);
+        pagination.appendChild(nextClone);
+    }
+    else if (numberOfPage === 1)
+    {
+
+        const current = document.createElement("li");
+        current.className = "page-item active";
+        const aCurrent = document.createElement("a");
+        aCurrent.className = "page-link";
+        aCurrent.textContent = numberOfPage;
+        current.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?page=${numberOfPage}`;
+        });
+
+        current.appendChild(aCurrent);
+
+        pagination.appendChild(current);
+    }
+    else if (numberOfPage === maxNumberOfPage)
+    {
+
+        const previousClone = document.createElement("li");
+        previousClone.className = "page-item";
+        const aPreviuosClone = document.createElement("a");
+        aPreviuosClone.className = "page-link";
+        aPreviuosClone.textContent = "«";
+        previousClone.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?page=${numberOfPage-1}`;
+        });
+
+        const previous = document.createElement("li");
+        previous.className = "page-item";
+        const aPreviuos = document.createElement("a");
+        aPreviuos.className = "page-link";
+        aPreviuos.textContent = numberOfPage-1;
+        previous.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?page=${numberOfPage-1}`;
+        });
+
+        const current = document.createElement("li");
+        current.className = "page-item active";
+        const aCurrent = document.createElement("a");
+        aCurrent.className = "page-link";
+        aCurrent.textContent = numberOfPage;
+        current.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?page=${numberOfPage}`;
+        });
+
+        previousClone.appendChild(aPreviuosClone);
+        previous.appendChild(aPreviuos);
+        current.appendChild(aCurrent);
+
+        pagination.appendChild(previousClone);
+        pagination.appendChild(previous);
+        pagination.appendChild(current);
+    }
+    else
+    {
+
+        const previousClone = document.createElement("li");
+        previousClone.className = "page-item";
+        const aPreviuosClone = document.createElement("a");
+        aPreviuosClone.className = "page-link";
+        aPreviuosClone.textContent = "«";
+        previousClone.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?page=${numberOfPage-1}`;
+        });
+
+        const previous = document.createElement("li");
+        previous.className = "page-item";
+        const aPreviuos = document.createElement("a");
+        aPreviuos.className = "page-link";
+        aPreviuos.textContent = numberOfPage-1;
+        previous.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?page=${numberOfPage-1}`;
+        });
+
+        const current = document.createElement("li");
+        current.className = "page-item active";
+        const aCurrent = document.createElement("a");
+        aCurrent.className = "page-link";
+        aCurrent.textContent = numberOfPage;
+        current.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?page=${numberOfPage}`;
+        });
+
+        const next = document.createElement("li");
+        next.className = "page-item";
+        const aNext = document.createElement("a");
+        aNext.className = "page-link";
+        aNext.textContent = numberOfPage+1;
+        next.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?page=${numberOfPage+1}`;
+        });
+
+        const nextClone = document.createElement("li");
+        nextClone.className = "page-item";
+        const aNextClone = document.createElement("a");
+        aNextClone.className = "page-link";
+        aNextClone.textContent = "»";
+        nextClone.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?page=${numberOfPage+1}`;
+        });
+
+        previousClone.appendChild(aPreviuosClone);
+        previous.appendChild(aPreviuos);
+        current.appendChild(aCurrent);
+        next.appendChild(aNext);
+        nextClone.appendChild(aNextClone);
+
+        pagination.appendChild(previousClone);
+        pagination.appendChild(previous);
+        pagination.appendChild(current);
+        pagination.appendChild(next);
+        pagination.appendChild(nextClone);
+    }
+}
+
+async function createNavigationForAttribute(numberOfPage=1, attribute)
+{
+
+    let maxPage = await get(`https://food-delivery.kreosoft.ru/api/dish?${attribute}`);
+    let maxNumberOfPage = maxPage['pagination']["count"];
+
+    const pagination = document.querySelector(".pagination");
+
+    if (numberOfPage === 1 && maxNumberOfPage >= 2)
+    {
+
+        const current = document.createElement("li");
+        current.className = "page-item active";
+        const aCurrent = document.createElement("a");
+        aCurrent.className = "page-link";
+        aCurrent.textContent = numberOfPage;
+        current.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage}`;
+        });
+
+        const next = document.createElement("li");
+        next.className = "page-item";
+        const aNext = document.createElement("a");
+        aNext.className = "page-link";
+        aNext.textContent = numberOfPage+1
+        next.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage+1}`;
+        });
+
+        const nextClone = document.createElement("li");
+        nextClone.className = "page-item";
+        const aNextClone = document.createElement("a");
+        aNextClone.className = "page-link";
+        aNextClone.textContent = "»";
+        nextClone.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage+1}`;
+        });
+
+        current.appendChild(aCurrent);
+        next.appendChild(aNext);
+        nextClone.appendChild(aNextClone);
+
+        pagination.appendChild(current);
+        pagination.appendChild(next);
+        pagination.appendChild(nextClone);
+    }
+    else if (numberOfPage === 1)
+    {
+
+        const current = document.createElement("li");
+        current.className = "page-item active";
+        const aCurrent = document.createElement("a");
+        aCurrent.className = "page-link";
+        aCurrent.textContent = numberOfPage;
+        current.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage}`;
+        });
+
+        current.appendChild(aCurrent);
+
+        pagination.appendChild(current);
+    }
+    else if (numberOfPage === maxNumberOfPage)
+    {
+
+        const previousClone = document.createElement("li");
+        previousClone.className = "page-item";
+        const aPreviuosClone = document.createElement("a");
+        aPreviuosClone.className = "page-link";
+        aPreviuosClone.textContent = "«";
+        previousClone.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage-1}`;
+        });
+
+        const previous = document.createElement("li");
+        previous.className = "page-item";
+        const aPreviuos = document.createElement("a");
+        aPreviuos.className = "page-link";
+        aPreviuos.textContent = numberOfPage-1;
+        previous.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage-1}`;
+        });
+
+        const current = document.createElement("li");
+        current.className = "page-item active";
+        const aCurrent = document.createElement("a");
+        aCurrent.className = "page-link";
+        aCurrent.textContent = numberOfPage;
+        current.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage}`;
+        });
+
+        previousClone.appendChild(aPreviuosClone);
+        previous.appendChild(aPreviuos);
+        current.appendChild(aCurrent);
+
+        pagination.appendChild(previousClone);
+        pagination.appendChild(previous);
+        pagination.appendChild(current);
+    }
+    else
+    {
+
+        const previousClone = document.createElement("li");
+        previousClone.className = "page-item";
+        const aPreviuosClone = document.createElement("a");
+        aPreviuosClone.className = "page-link";
+        aPreviuosClone.textContent = "«";
+        previousClone.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage-1}`;
+        });
+
+        const previous = document.createElement("li");
+        previous.className = "page-item";
+        const aPreviuos = document.createElement("a");
+        aPreviuos.className = "page-link";
+        aPreviuos.textContent = numberOfPage-1;
+        previous.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage-1}`;
+        });
+
+        const current = document.createElement("li");
+        current.className = "page-item active";
+        const aCurrent = document.createElement("a");
+        aCurrent.className = "page-link";
+        aCurrent.textContent = numberOfPage;
+        current.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage}`;
+        });
+
+        const next = document.createElement("li");
+        next.className = "page-item";
+        const aNext = document.createElement("a");
+        aNext.className = "page-link";
+        aNext.textContent = numberOfPage+1;
+        next.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage+1}`;
+        });
+
+        const nextClone = document.createElement("li");
+        nextClone.className = "page-item";
+        const aNextClone = document.createElement("a");
+        aNextClone.className = "page-link";
+        aNextClone.textContent = "»";
+        nextClone.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage+1}`;
+        });
+
+        previousClone.appendChild(aPreviuosClone);
+        previous.appendChild(aPreviuos);
+        current.appendChild(aCurrent);
+        next.appendChild(aNext);
+        nextClone.appendChild(aNextClone);
+
+        pagination.appendChild(previousClone);
+        pagination.appendChild(previous);
+        pagination.appendChild(current);
+        pagination.appendChild(next);
+        pagination.appendChild(nextClone);
+    }
+}
+
+async function createNavigationForAttributeAndPage(numberOfPage, attribute)
+{
+
+    let maxPage = await get(`https://food-delivery.kreosoft.ru/api/dish?${attribute}&page=${numberOfPage}`);
+    let maxNumberOfPage = maxPage['pagination']["count"];
+
+    const pagination = document.querySelector(".pagination");
+
+    if (numberOfPage === 1 && maxNumberOfPage >= 2)
+    {
+
+        const current = document.createElement("li");
+        current.className = "page-item active";
+        const aCurrent = document.createElement("a");
+        aCurrent.className = "page-link";
+        aCurrent.textContent = numberOfPage;
+        current.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage}`;
+        });
+
+        const next = document.createElement("li");
+        next.className = "page-item";
+        const aNext = document.createElement("a");
+        aNext.className = "page-link";
+        aNext.textContent = numberOfPage+1
+        next.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage+1}`;
+        });
+
+        const nextClone = document.createElement("li");
+        nextClone.className = "page-item";
+        const aNextClone = document.createElement("a");
+        aNextClone.className = "page-link";
+        aNextClone.textContent = "»";
+        nextClone.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage+1}`;
+        });
+
+        current.appendChild(aCurrent);
+        next.appendChild(aNext);
+        nextClone.appendChild(aNextClone);
+
+        pagination.appendChild(current);
+        pagination.appendChild(next);
+        pagination.appendChild(nextClone);
+    }
+    else if (numberOfPage === 1)
+    {
+
+        const current = document.createElement("li");
+        current.className = "page-item active";
+        const aCurrent = document.createElement("a");
+        aCurrent.className = "page-link";
+        aCurrent.textContent = numberOfPage;
+        current.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage}`;
+        });
+
+        current.appendChild(aCurrent);
+
+        pagination.appendChild(current);
+    }
+    else if (numberOfPage === maxNumberOfPage)
+    {
+
+        const previousClone = document.createElement("li");
+        previousClone.className = "page-item";
+        const aPreviuosClone = document.createElement("a");
+        aPreviuosClone.className = "page-link";
+        aPreviuosClone.textContent = "«";
+        previousClone.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage-1}`;
+        });
+
+        const previous = document.createElement("li");
+        previous.className = "page-item";
+        const aPreviuos = document.createElement("a");
+        aPreviuos.className = "page-link";
+        aPreviuos.textContent = numberOfPage-1;
+        previous.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage-1}`;
+        });
+
+        const current = document.createElement("li");
+        current.className = "page-item active";
+        const aCurrent = document.createElement("a");
+        aCurrent.className = "page-link";
+        aCurrent.textContent = numberOfPage;
+        current.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage}`;
+        });
+
+        previousClone.appendChild(aPreviuosClone);
+        previous.appendChild(aPreviuos);
+        current.appendChild(aCurrent);
+
+        pagination.appendChild(previousClone);
+        pagination.appendChild(previous);
+        pagination.appendChild(current);
+    }
+    else
+    {
+
+        const previousClone = document.createElement("li");
+        previousClone.className = "page-item";
+        const aPreviuosClone = document.createElement("a");
+        aPreviuosClone.className = "page-link";
+        aPreviuosClone.textContent = "«";
+        previousClone.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage-1}`;
+        });
+
+        const previous = document.createElement("li");
+        previous.className = "page-item";
+        const aPreviuos = document.createElement("a");
+        aPreviuos.className = "page-link";
+        aPreviuos.textContent = numberOfPage-1;
+        previous.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage-1}`;
+        });
+
+        const current = document.createElement("li");
+        current.className = "page-item active";
+        const aCurrent = document.createElement("a");
+        aCurrent.className = "page-link";
+        aCurrent.textContent = numberOfPage;
+        current.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage}`;
+        });
+
+        const next = document.createElement("li");
+        next.className = "page-item";
+        const aNext = document.createElement("a");
+        aNext.className = "page-link";
+        aNext.textContent = numberOfPage+1;
+        next.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage+1}`;
+        });
+
+        const nextClone = document.createElement("li");
+        nextClone.className = "page-item";
+        const aNextClone = document.createElement("a");
+        aNextClone.className = "page-link";
+        aNextClone.textContent = "»";
+        nextClone.addEventListener("click", () => {
+
+            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage+1}`;
+        });
+
+        previousClone.appendChild(aPreviuosClone);
+        previous.appendChild(aPreviuos);
+        current.appendChild(aCurrent);
+        next.appendChild(aNext);
+        nextClone.appendChild(aNextClone);
+
+        pagination.appendChild(previousClone);
+        pagination.appendChild(previous);
+        pagination.appendChild(current);
+        pagination.appendChild(next);
+        pagination.appendChild(nextClone);
+    }
+}
+
+async function changeValuesOfInputs(attributes)
+{
+    for (let i = 0; i < attributes.length; i++)
+    {
+        if (attributes[i][0] === "c")
+        {
+            let valueOfTypeOfSorting = attributes[i].split("=");
+            document.getElementById(valueOfTypeOfSorting[1]).selected = true;
+            $('.selectpicker').selectpicker('refresh');
+        }
+        else if (attributes[i][0] === "s")
+        {
+            let valueOfTypeOfSorting = attributes[i].split("=");
+            document.getElementById(`sorting`).selectedIndex = selectSortingType(valueOfTypeOfSorting[1]);
+            $('.selectpicker').selectpicker('refresh');
+        }
+        else if (attributes[i][0] === "v")
+        {
+            let valueOfVegetable = attributes[i].split("=");
+            document.getElementById("vegetarian").checked = (valueOfVegetable[1] === "false") ? (false) : true;
+        }
+    }
+}
+
+async function changeValuesOfInput(attribute)
+{
+    if (attribute[0] === "c")
+    {
+        let valueOfTypeOfSorting = attribute.split("=");
+        document.getElementById(valueOfTypeOfSorting[1]).selected = true;
+        $('.selectpicker').selectpicker('refresh');
+    }
+    else if (attribute[0] === "s")
+    {
+        let valueOfTypeOfSorting = attribute.split("=");
+
+        document.getElementById(`sorting`).selectedIndex = selectSortingType(valueOfTypeOfSorting[1]);
+        $('.selectpicker').selectpicker('refresh');
+    }
+    else if (attribute[0] === "v")
+    {
+        let valueOfVegetable = attribute.split("=");
+        document.getElementById("vegetarian").checked = (valueOfVegetable[1] === "false") ? (false) : true;
+    }
+}
+
 async function createMainPart(profile=null)
 {
 
@@ -552,421 +1119,6 @@ async function createMainPartWithPage(profile=null, page=1)
        rowWithCards.appendChild(card);
     }
 }
-
-async function createNavigation(numberOfPage=1)
-{
-    let maxPage = await get(`https://food-delivery.kreosoft.ru/api/dish`);
-    let maxNumberOfPage = maxPage['pagination']["count"];
-
-    const pagination = document.querySelector(".pagination");
-
-    if (numberOfPage === 1 && maxNumberOfPage >= 2)
-    {
-
-        const current = document.createElement("li");
-        current.className = "page-item active";
-        const aCurrent = document.createElement("a");
-        aCurrent.className = "page-link";
-        aCurrent.textContent = numberOfPage;
-        current.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?page=${numberOfPage}`;
-        });
-
-        const next = document.createElement("li");
-        next.className = "page-item";
-        const aNext = document.createElement("a");
-        aNext.className = "page-link";
-        aNext.textContent = numberOfPage+1
-        next.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?page=${numberOfPage+1}`;
-        });
-
-        const nextClone = document.createElement("li");
-        nextClone.className = "page-item";
-        const aNextClone = document.createElement("a");
-        aNextClone.className = "page-link";
-        aNextClone.textContent = "»";
-        nextClone.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?page=${numberOfPage+1}`;
-        });
-
-        current.appendChild(aCurrent);
-        next.appendChild(aNext);
-        nextClone.appendChild(aNextClone);
-
-        pagination.appendChild(current);
-        pagination.appendChild(next);
-        pagination.appendChild(nextClone);
-    }
-    else if (numberOfPage === 1)
-    {
-
-        const current = document.createElement("li");
-        current.className = "page-item active";
-        const aCurrent = document.createElement("a");
-        aCurrent.className = "page-link";
-        aCurrent.textContent = numberOfPage;
-        current.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?page=${numberOfPage}`;
-        });
-
-        current.appendChild(aCurrent);
-
-        pagination.appendChild(current);
-    }
-    else if (numberOfPage === maxNumberOfPage)
-    {
-
-        const previousClone = document.createElement("li");
-        previousClone.className = "page-item";
-        const aPreviuosClone = document.createElement("a");
-        aPreviuosClone.className = "page-link";
-        aPreviuosClone.textContent = "«";
-        previousClone.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?page=${numberOfPage-1}`;
-        });
-
-        const previous = document.createElement("li");
-        previous.className = "page-item";
-        const aPreviuos = document.createElement("a");
-        aPreviuos.className = "page-link";
-        aPreviuos.textContent = numberOfPage-1;
-        previous.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?page=${numberOfPage-1}`;
-        });
-
-        const current = document.createElement("li");
-        current.className = "page-item active";
-        const aCurrent = document.createElement("a");
-        aCurrent.className = "page-link";
-        aCurrent.textContent = numberOfPage;
-        current.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?page=${numberOfPage}`;
-        });
-
-        previousClone.appendChild(aPreviuosClone);
-        previous.appendChild(aPreviuos);
-        current.appendChild(aCurrent);
-
-        pagination.appendChild(previousClone);
-        pagination.appendChild(previous);
-        pagination.appendChild(current);
-    }
-    else
-    {
-
-        const previousClone = document.createElement("li");
-        previousClone.className = "page-item";
-        const aPreviuosClone = document.createElement("a");
-        aPreviuosClone.className = "page-link";
-        aPreviuosClone.textContent = "«";
-        previousClone.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?page=${numberOfPage-1}`;
-        });
-
-        const previous = document.createElement("li");
-        previous.className = "page-item";
-        const aPreviuos = document.createElement("a");
-        aPreviuos.className = "page-link";
-        aPreviuos.textContent = numberOfPage-1;
-        previous.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?page=${numberOfPage-1}`;
-        });
-
-        const current = document.createElement("li");
-        current.className = "page-item active";
-        const aCurrent = document.createElement("a");
-        aCurrent.className = "page-link";
-        aCurrent.textContent = numberOfPage;
-        current.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?page=${numberOfPage}`;
-        });
-
-        const next = document.createElement("li");
-        next.className = "page-item";
-        const aNext = document.createElement("a");
-        aNext.className = "page-link";
-        aNext.textContent = numberOfPage+1;
-        next.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?page=${numberOfPage+1}`;
-        });
-
-        const nextClone = document.createElement("li");
-        nextClone.className = "page-item";
-        const aNextClone = document.createElement("a");
-        aNextClone.className = "page-link";
-        aNextClone.textContent = "»";
-        nextClone.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?page=${numberOfPage+1}`;
-        });
-
-        previousClone.appendChild(aPreviuosClone);
-        previous.appendChild(aPreviuos);
-        current.appendChild(aCurrent);
-        next.appendChild(aNext);
-        nextClone.appendChild(aNextClone);
-
-        pagination.appendChild(previousClone);
-        pagination.appendChild(previous);
-        pagination.appendChild(current);
-        pagination.appendChild(next);
-        pagination.appendChild(nextClone);
-    }
-}
-
-async function createNavigationForAttribute(numberOfPage=1, attribute)
-{
-
-    let maxPage = await get(`https://food-delivery.kreosoft.ru/api/dish?${attribute}`);
-    let maxNumberOfPage = maxPage['pagination']["count"];
-
-    const pagination = document.querySelector(".pagination");
-
-    if (numberOfPage === 1 && maxNumberOfPage >= 2)
-    {
-
-        const current = document.createElement("li");
-        current.className = "page-item active";
-        const aCurrent = document.createElement("a");
-        aCurrent.className = "page-link";
-        aCurrent.textContent = numberOfPage;
-        current.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage}`;
-        });
-
-        const next = document.createElement("li");
-        next.className = "page-item";
-        const aNext = document.createElement("a");
-        aNext.className = "page-link";
-        aNext.textContent = numberOfPage+1
-        next.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage+1}`;
-        });
-
-        const nextClone = document.createElement("li");
-        nextClone.className = "page-item";
-        const aNextClone = document.createElement("a");
-        aNextClone.className = "page-link";
-        aNextClone.textContent = "»";
-        nextClone.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage+1}`;
-        });
-
-        current.appendChild(aCurrent);
-        next.appendChild(aNext);
-        nextClone.appendChild(aNextClone);
-
-        pagination.appendChild(current);
-        pagination.appendChild(next);
-        pagination.appendChild(nextClone);
-    }
-    else if (numberOfPage === 1)
-    {
-
-        const current = document.createElement("li");
-        current.className = "page-item active";
-        const aCurrent = document.createElement("a");
-        aCurrent.className = "page-link";
-        aCurrent.textContent = numberOfPage;
-        current.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage}`;
-        });
-
-        current.appendChild(aCurrent);
-
-        pagination.appendChild(current);
-    }
-    else if (numberOfPage === maxNumberOfPage)
-    {
-
-        const previousClone = document.createElement("li");
-        previousClone.className = "page-item";
-        const aPreviuosClone = document.createElement("a");
-        aPreviuosClone.className = "page-link";
-        aPreviuosClone.textContent = "«";
-        previousClone.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage-1}`;
-        });
-
-        const previous = document.createElement("li");
-        previous.className = "page-item";
-        const aPreviuos = document.createElement("a");
-        aPreviuos.className = "page-link";
-        aPreviuos.textContent = numberOfPage-1;
-        previous.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage-1}`;
-        });
-
-        const current = document.createElement("li");
-        current.className = "page-item active";
-        const aCurrent = document.createElement("a");
-        aCurrent.className = "page-link";
-        aCurrent.textContent = numberOfPage;
-        current.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage}`;
-        });
-
-        previousClone.appendChild(aPreviuosClone);
-        previous.appendChild(aPreviuos);
-        current.appendChild(aCurrent);
-
-        pagination.appendChild(previousClone);
-        pagination.appendChild(previous);
-        pagination.appendChild(current);
-    }
-    else
-    {
-
-        const previousClone = document.createElement("li");
-        previousClone.className = "page-item";
-        const aPreviuosClone = document.createElement("a");
-        aPreviuosClone.className = "page-link";
-        aPreviuosClone.textContent = "«";
-        previousClone.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage-1}`;
-        });
-
-        const previous = document.createElement("li");
-        previous.className = "page-item";
-        const aPreviuos = document.createElement("a");
-        aPreviuos.className = "page-link";
-        aPreviuos.textContent = numberOfPage-1;
-        previous.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage-1}`;
-        });
-
-        const current = document.createElement("li");
-        current.className = "page-item active";
-        const aCurrent = document.createElement("a");
-        aCurrent.className = "page-link";
-        aCurrent.textContent = numberOfPage;
-        current.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage}`;
-        });
-
-        const next = document.createElement("li");
-        next.className = "page-item";
-        const aNext = document.createElement("a");
-        aNext.className = "page-link";
-        aNext.textContent = numberOfPage+1;
-        next.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage+1}`;
-        });
-
-        const nextClone = document.createElement("li");
-        nextClone.className = "page-item";
-        const aNextClone = document.createElement("a");
-        aNextClone.className = "page-link";
-        aNextClone.textContent = "»";
-        nextClone.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage+1}`;
-        });
-
-        previousClone.appendChild(aPreviuosClone);
-        previous.appendChild(aPreviuos);
-        current.appendChild(aCurrent);
-        next.appendChild(aNext);
-        nextClone.appendChild(aNextClone);
-
-        pagination.appendChild(previousClone);
-        pagination.appendChild(previous);
-        pagination.appendChild(current);
-        pagination.appendChild(next);
-        pagination.appendChild(nextClone);
-    }
-}
-
-function selectSortingType(type)
-{
-    switch (type) {
-        case "NameAsc":
-            return 0;
-        case "NameDesc":
-            return 1;
-        case "PriceAsc":
-            return 2;
-        case "PriceDesc":
-            return 3;
-        case "RatingAsc":
-            return 4;
-        case "RatingDesc":
-            return 5;
-        default:
-            return 10000;
-    }
-}
-
-
-async function changeValuesOfInputs(attributes)
-{
-    for (let i = 0; i < attributes.length; i++)
-    {
-        if (attributes[i][0] === "c")
-        {
-            let valueOfTypeOfSorting = attributes[i].split("=");
-            document.getElementById(valueOfTypeOfSorting[1]).selected = true;
-            $('.selectpicker').selectpicker('refresh');
-        }
-        else if (attributes[i][0] === "s")
-        {
-            let valueOfTypeOfSorting = attributes[i].split("=");
-            document.getElementById(`sorting`).selectedIndex = selectSortingType(valueOfTypeOfSorting[1]);
-            $('.selectpicker').selectpicker('refresh');
-        }
-        else if (attributes[i][0] === "v")
-        {
-            let valueOfVegetable = attributes[i].split("=");
-            document.getElementById("vegetarian").checked = (valueOfVegetable[1] === "false") ? (false) : true;
-        }
-    }
-}
-
-async function changeValuesOfInput(attribute)
-{
-    if (attribute[0] === "c")
-    {
-        let valueOfTypeOfSorting = attribute.split("=");
-        document.getElementById(valueOfTypeOfSorting[1]).selected = true;
-        $('.selectpicker').selectpicker('refresh');
-    }
-    else if (attribute[0] === "s")
-    {
-        let valueOfTypeOfSorting = attribute.split("=");
-
-        document.getElementById(`sorting`).selectedIndex = selectSortingType(valueOfTypeOfSorting[1]);
-        $('.selectpicker').selectpicker('refresh');
-    }
-    else if (attribute[0] === "v")
-    {
-        let valueOfVegetable = attribute.split("=");
-        document.getElementById("vegetarian").checked = (valueOfVegetable[1] === "false") ? (false) : true;
-    }
-}
-
 
 async function createMainPartWithAttribute(profile=null, page=1, attribute)
 {
@@ -1510,180 +1662,25 @@ async function createMainPartWithAttributeAndPage(profile=null, page=1, attribut
     }
 }
 
-async function createNavigationForAttributeAndPage(numberOfPage, attribute)
+function selectSortingType(type)
 {
-
-    let maxPage = await get(`https://food-delivery.kreosoft.ru/api/dish?${attribute}&page=${numberOfPage}`);
-    let maxNumberOfPage = maxPage['pagination']["count"];
-
-    const pagination = document.querySelector(".pagination");
-
-    if (numberOfPage === 1 && maxNumberOfPage >= 2)
-    {
-
-        const current = document.createElement("li");
-        current.className = "page-item active";
-        const aCurrent = document.createElement("a");
-        aCurrent.className = "page-link";
-        aCurrent.textContent = numberOfPage;
-        current.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage}`;
-        });
-
-        const next = document.createElement("li");
-        next.className = "page-item";
-        const aNext = document.createElement("a");
-        aNext.className = "page-link";
-        aNext.textContent = numberOfPage+1
-        next.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage+1}`;
-        });
-
-        const nextClone = document.createElement("li");
-        nextClone.className = "page-item";
-        const aNextClone = document.createElement("a");
-        aNextClone.className = "page-link";
-        aNextClone.textContent = "»";
-        nextClone.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage+1}`;
-        });
-
-        current.appendChild(aCurrent);
-        next.appendChild(aNext);
-        nextClone.appendChild(aNextClone);
-
-        pagination.appendChild(current);
-        pagination.appendChild(next);
-        pagination.appendChild(nextClone);
-    }
-    else if (numberOfPage === 1)
-    {
-
-        const current = document.createElement("li");
-        current.className = "page-item active";
-        const aCurrent = document.createElement("a");
-        aCurrent.className = "page-link";
-        aCurrent.textContent = numberOfPage;
-        current.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage}`;
-        });
-
-        current.appendChild(aCurrent);
-
-        pagination.appendChild(current);
-    }
-    else if (numberOfPage === maxNumberOfPage)
-    {
-
-        const previousClone = document.createElement("li");
-        previousClone.className = "page-item";
-        const aPreviuosClone = document.createElement("a");
-        aPreviuosClone.className = "page-link";
-        aPreviuosClone.textContent = "«";
-        previousClone.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage-1}`;
-        });
-
-        const previous = document.createElement("li");
-        previous.className = "page-item";
-        const aPreviuos = document.createElement("a");
-        aPreviuos.className = "page-link";
-        aPreviuos.textContent = numberOfPage-1;
-        previous.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage-1}`;
-        });
-
-        const current = document.createElement("li");
-        current.className = "page-item active";
-        const aCurrent = document.createElement("a");
-        aCurrent.className = "page-link";
-        aCurrent.textContent = numberOfPage;
-        current.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage}`;
-        });
-
-        previousClone.appendChild(aPreviuosClone);
-        previous.appendChild(aPreviuos);
-        current.appendChild(aCurrent);
-
-        pagination.appendChild(previousClone);
-        pagination.appendChild(previous);
-        pagination.appendChild(current);
-    }
-    else
-    {
-
-        const previousClone = document.createElement("li");
-        previousClone.className = "page-item";
-        const aPreviuosClone = document.createElement("a");
-        aPreviuosClone.className = "page-link";
-        aPreviuosClone.textContent = "«";
-        previousClone.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage-1}`;
-        });
-
-        const previous = document.createElement("li");
-        previous.className = "page-item";
-        const aPreviuos = document.createElement("a");
-        aPreviuos.className = "page-link";
-        aPreviuos.textContent = numberOfPage-1;
-        previous.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage-1}`;
-        });
-
-        const current = document.createElement("li");
-        current.className = "page-item active";
-        const aCurrent = document.createElement("a");
-        aCurrent.className = "page-link";
-        aCurrent.textContent = numberOfPage;
-        current.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage}`;
-        });
-
-        const next = document.createElement("li");
-        next.className = "page-item";
-        const aNext = document.createElement("a");
-        aNext.className = "page-link";
-        aNext.textContent = numberOfPage+1;
-        next.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage+1}`;
-        });
-
-        const nextClone = document.createElement("li");
-        nextClone.className = "page-item";
-        const aNextClone = document.createElement("a");
-        aNextClone.className = "page-link";
-        aNextClone.textContent = "»";
-        nextClone.addEventListener("click", () => {
-
-            window.location['href'] = "http://localhost/" + `?${attribute}&page=${numberOfPage+1}`;
-        });
-
-        previousClone.appendChild(aPreviuosClone);
-        previous.appendChild(aPreviuos);
-        current.appendChild(aCurrent);
-        next.appendChild(aNext);
-        nextClone.appendChild(aNextClone);
-
-        pagination.appendChild(previousClone);
-        pagination.appendChild(previous);
-        pagination.appendChild(current);
-        pagination.appendChild(next);
-        pagination.appendChild(nextClone);
+    switch (type) {
+        case "NameAsc":
+            return 0;
+        case "NameDesc":
+            return 1;
+        case "PriceAsc":
+            return 2;
+        case "PriceDesc":
+            return 3;
+        case "RatingAsc":
+            return 4;
+        case "RatingDesc":
+            return 5;
+        default:
+            return 10000;
     }
 }
-
 
 function chooseType(type)
 {

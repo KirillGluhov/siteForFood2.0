@@ -11,15 +11,15 @@ async function createDish(profile)
 {
     const allPartOfURL = window.location['href'].split("/");
     const dish = await get(`https://food-delivery.kreosoft.ru/api/dish/${allPartOfURL[allPartOfURL.length-1]}`);
-    let isCanUserRateDish;
+    let canUserRateDish;
 
     if (profile !== null)
     {
-        isCanUserRateDish = await getWithToken(`https://food-delivery.kreosoft.ru/api/dish/${allPartOfURL[allPartOfURL.length-1]}/rating/check`, localStorage['token']);
+        canUserRateDish = await getWithToken(`https://food-delivery.kreosoft.ru/api/dish/${allPartOfURL[allPartOfURL.length-1]}/rating/check`, localStorage['token']);
     }
     else
     {
-        isCanUserRateDish = false;
+        canUserRateDish = false;
     }
 
     document.getElementById("name").textContent = `${dish['name'].toUpperCase()}`;
@@ -40,8 +40,8 @@ async function createDish(profile)
 
     document.getElementById("category").textContent = `Категория блюда - ${dish['category']}`;
 
-    document.getElementById("starsToRate").className = `${(isCanUserRateDish === true) ? ("container d-flex py-1 justify-content-center") : ("d-none")}`;
-    document.getElementById("rating").className = `${(isCanUserRateDish === true) ? ("card-text") : ("card-text d-none")}`;
+    document.getElementById("starsToRate").className = `${(canUserRateDish === true) ? ("container d-flex py-1 justify-content-center") : ("d-none")}`;
+    document.getElementById("rating").className = `${(canUserRateDish === true) ? ("card-text") : ("card-text d-none")}`;
     document.getElementById("description").textContent = `${dish['description']}`;
     document.getElementById("price").textContent = `${dish['price']}`;
 

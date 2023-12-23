@@ -76,13 +76,11 @@ async function createMainPart(profile, dishesInCart)
         plus.type = "button";
         plus.textContent = "+";
 
-
         const deleteButton = document.createElement("button");
         deleteButton.type = "button";
         deleteButton.id = "delete";
         deleteButton.className = "btn btn-danger";
         deleteButton.textContent = "Удалить";
-
 
         nameAndPrice.appendChild(nameOfDish);
         nameAndPrice.appendChild(price);

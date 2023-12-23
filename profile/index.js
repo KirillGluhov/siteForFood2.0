@@ -11,10 +11,13 @@ async function createMainPart(profile)
 {
     const fullname = document.getElementById("inputFullname");
     fullname.value = profile["fullName"];
+
     const gender = document.getElementById("staticGender");
     gender.value = ((profile["gender"] === "Male") ? ("мужской") : ("женский"));
+
     const email = document.getElementById("staticEmail");
     email.value = profile["email"];
+
     const birthday = document.getElementById("birthDate");
 
     if (profile["birthDate"] !== null)
@@ -40,7 +43,6 @@ async function createMainPart(profile)
     let guidOfBuilding;
 
     document.getElementById("save").addEventListener("click", () => {
-
         const infoAboutUser = {
             "fullName": fullname.value,
             "birthDate": birthday.value || null,
