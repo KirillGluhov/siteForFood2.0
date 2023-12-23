@@ -36,6 +36,11 @@ body, html
     background-color: #f8f9fa;
 }
 
+.card.width18
+{
+    border: 0px;
+}
+
 .container.shadow
 {
     min-width: 300px;

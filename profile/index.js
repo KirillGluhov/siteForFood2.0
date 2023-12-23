@@ -24,26 +24,16 @@ async function createMainPart(profile)
 
     const phone = document.getElementById("phone");
 
+    IMask(
+        document.getElementById('phone'),
+        {
+          mask: '+{7} (000) 000-00-00'
+        }
+      )
+
     if (profile["phoneNumber"] !== null)
     {
-
-        IMask(
-            document.getElementById('phone'),
-            {
-              mask: '+{7} (000) 000-00-00'
-            }
-          )
-
-          phone.value = profile["phoneNumber"];
-    }
-    else
-    {
-        IMask(
-            document.getElementById('phone'),
-            {
-              mask: '+{7} (000) 000-00-00'
-            }
-          )
+        phone.value = profile["phoneNumber"];
     }
 
     const adress = await get("https://food-delivery.kreosoft.ru/api/address/search");

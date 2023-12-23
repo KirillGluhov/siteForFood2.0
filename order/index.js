@@ -80,9 +80,6 @@ async function createMain(profile=null)
         statusOfOrder.textContent = `Статус заказа - Доставлен`;
     }
 
-
-    
-
     const cardBody = document.createElement("div");
     cardBody.className = "card-body";
 

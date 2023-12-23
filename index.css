@@ -1,14 +1,4 @@
-.card-body:hover
+.card-body:hover, .card.border-0:hover
 {
     cursor: pointer;
-}
-
-.card.border-0:hover
-{
-    cursor: pointer;
-}
-
-.card.width18
-{
-    border: 0px;
 }
