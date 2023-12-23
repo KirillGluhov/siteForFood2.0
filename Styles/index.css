@@ -98,6 +98,18 @@ hr
     color: black;
 }
 
+.rate:hover
+{
+    cursor: pointer;
+    color: #ffbf40;
+}
+
+.rate:hover ~ .fa-star
+{
+    cursor: pointer;
+    color: #ffbf40;
+}
+
 .part-10
 {
     font-size: .875em;

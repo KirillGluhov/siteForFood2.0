@@ -1,15 +1,3 @@
-.rate:hover
-{
-    cursor: pointer;
-    color: #ffbf40;
-}
-
-.rate:hover ~ .fa-star
-{
-    cursor: pointer;
-    color: #ffbf40;
-}
-
 .card:hover
 {
     cursor: pointer;

@@ -6,6 +6,8 @@ import { incorrect } from '../Methods/ChangeValidity.js';
 import { isCorrect } from '../Methods/ChangeValidity.js';
 import { passwordCheck } from '../Methods/ChangeValidity.js';
 
+import { createFieldToInput } from '../Methods/Create.js';
+
 async function notNullCheck(option)
 {
     if (option.value === null || option.value === "")  
@@ -72,112 +74,6 @@ async function isCorrectBirthday(birthday)
     {
         return true;
     }
-    
-}
-
-async function recursiveCreationOfFields(adresses, numberOfIndex = 0)
-{
-    const partOfAdress = await get(`https://food-delivery.kreosoft.ru/api/address/search?parentObjectId=${adresses[numberOfIndex]['objectId']}`);
-    const adressPartInForm = document.querySelector(".container.border.rounded");
-    const adressPart = document.createElement("div");
-    adressPart.className = "form-group";
-
-    const namePartOfAdress = document.createElement("label");
-    namePartOfAdress.setAttribute('for', `unknown`);
-    namePartOfAdress.textContent = `Следующий элемент адреса`;
-
-    const choose = document.createElement("select");
-    choose.className = "form-control";
-    choose.id = `unknown`;
-
-    for (let i = 0; i < partOfAdress.length; i++)
-    {
-        const option = document.createElement("option");
-        option.textContent = partOfAdress[i]['text'];
-        choose.appendChild(option);
-    }
-
-    adressPart.appendChild(namePartOfAdress);
-    adressPart.appendChild(choose);
-
-    adressPartInForm.appendChild(adressPart);
-
-    return new Promise((resolve, reject) => {choose.addEventListener("change", async function() {
-        const selectedOption = choose.options[choose.selectedIndex];
-        let indexOfElement;
-
-        for (let i = 0; i < partOfAdress.length; i++)
-        {
-            if (partOfAdress[i]['text'] == selectedOption.value)
-            {
-                namePartOfAdress.setAttribute('for', `${partOfAdress[i]['objectLevel']}`);
-                namePartOfAdress.textContent = `${partOfAdress[i]['objectLevelText']}`;
-                choose.id = `${partOfAdress[i]['objectId']}`;
-                adressPart.id = `#${partOfAdress[i]['objectId']}`;
-                indexOfElement = i;
-            }
-        }
-
-        let indexOfMiddle = -1;
-
-        for (let i = 0; i < adressPartInForm.childNodes.length; i++)
-        {
-            if (adressPartInForm.childNodes[i].id == adressPart.id)
-            {
-                indexOfMiddle = i;
-            }
-
-            if (indexOfMiddle != -1 && indexOfMiddle+1 < adressPartInForm.childNodes.length)
-            {
-                adressPartInForm.removeChild(adressPartInForm.childNodes[indexOfMiddle+1]);
-            }
-        }
-
-        if (partOfAdress[indexOfElement]['objectLevel'] != "Building")
-        {
-            const result = await recursiveCreationOfFields(partOfAdress, indexOfElement);
-            resolve(result);
-        }
-        else
-        {
-            resolve(partOfAdress[indexOfElement]['objectGuid']);
-        }
-
-    });});
-}
-
-async function createFieldToInput(adresses)
-{
-    const adressPartInForm = document.querySelector(".container.border.rounded");
-    const adressPart = document.createElement("div");
-    adressPart.className = "form-group";
-
-    const namePartOfAdress = document.createElement("label");
-    namePartOfAdress.setAttribute('for', `${adresses[0]['objectLevel']}`);
-    namePartOfAdress.textContent = `${adresses[0]['objectLevelText']}`;
-
-    const choose = document.createElement("select");
-    choose.className = "form-control";
-    choose.id = `${adresses[0]['objectLevel']}`;
-
-    for (let i = 0; i < adresses.length; i++)
-    {
-        const option = document.createElement("option");
-        option.textContent = adresses[i]['text'];
-        choose.appendChild(option);
-    }
-
-    adressPart.appendChild(namePartOfAdress);
-    adressPart.appendChild(choose);
-
-    adressPartInForm.appendChild(adressPart);
-
-    choose.addEventListener("change", function() {
-        const selectedOption = choose.options[choose.selectedIndex];
-    });
-
-    return recursiveCreationOfFields(adresses, 0)
-
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
