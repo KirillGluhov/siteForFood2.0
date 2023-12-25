@@ -34,7 +34,6 @@ async function createNavigation(numberOfPage=1)
 
     if (numberOfPage === 1 && maxNumberOfPage >= 2)
     {
-
         const current = document.createElement("li");
         current.className = "page-item active";
         const aCurrent = document.createElement("a");
@@ -208,7 +207,6 @@ async function createNavigationForAttribute(numberOfPage=1, attribute)
 
     if (numberOfPage === 1 && maxNumberOfPage >= 2)
     {
-
         const current = document.createElement("li");
         current.className = "page-item active";
         const aCurrent = document.createElement("a");
@@ -594,7 +592,6 @@ async function changeValuesOfInput(attribute)
 
 async function createMainPart(profile=null)
 {
-
     let dishesInCart;
 
     if (profile !== null)
