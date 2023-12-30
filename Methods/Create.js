@@ -29,13 +29,12 @@ export async function createNavbarForUnauthorized()
     liElementSecond.className = "nav-item active";
 
     const aElementSecond = document.createElement("a");
-    aElementSecond.className = "nav-link bebra";
+    aElementSecond.className = "nav-link";
     aElementSecond.href = "http://localhost/";
     aElementSecond.textContent = "Меню";
 
     liElementSecond.appendChild(aElementSecond);
     ulElementSecond.appendChild(liElementSecond);
-    
 }
 
 export async function createNavbarForAuthorized(profile)

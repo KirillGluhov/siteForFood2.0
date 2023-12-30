@@ -2,6 +2,7 @@ import { postWithToken } from '../Methods/Methods.js';
 import { deleteWithToken } from '../Methods/Methods.js';
 
 import { createNavbar } from '../Methods/Create.js';
+
 import { getMainInformation } from '../Methods/GetInfo.js';
 
 async function createMainPart(profile, dishesInCart)

@@ -77,8 +77,10 @@ async function isCorrectBirthday(birthday)
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+
     const adress = await get("https://food-delivery.kreosoft.ru/api/address/search");
     let guidOfBuilding;
+
     IMask(
         document.getElementById('Phone'),
         {
@@ -101,7 +103,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         flag = await notNullCheck(fullName);
         flag = await notNullCheck(gender);
-        flag = await passwordCheck(password);
+        flag = await passwordCheck(password); 
         flag = await adresCheck(guidOfBuilding);
 
         flag = await isCorrect(telephone, "^\\+7 \\(\\d{3}\\) \\d{3}-\\d{2}-\\d{2}$");
@@ -110,7 +112,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (flag === true)
         {
-            
             let registerRequest = {
                 "fullName": fullName.value,
                 "password": password.value,
