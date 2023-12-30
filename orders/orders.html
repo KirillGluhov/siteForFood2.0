@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Оформление заказа</title>
+        <title>История заказов</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="index.css">
         <link rel="stylesheet" href="../Styles/index.css">
+        <link rel="stylesheet" href="../Styles/style.css">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -37,34 +37,21 @@
         </header>
         
         <main>
-            <div class="container shadow py-4 mb-3">
-                <form>
-                  <h1 class="text-black">Оформление заказа</h1>
-                  <h3>Данные покупателя</h3>
-                  <div class="row">
-                    <div class="form-label-group col-md-6 col-12">
-                      <input type="tel" id="telephone" class="form-control pl-3" placeholder="Телефон" required="" autofocus="" readonly>
-                      <label for="telephone">Телефон</label>
-                    </div>
-                    <div class="form-label-group col-md-6 col-12">
-                      <input type="email" id="email" class="form-control pl-3" placeholder="Email" required="" autofocus="" readonly>
-                      <label for="email">Email</label>
+            <div class="container shadow px-0" style="position: relative;">
+                <div class="card-body">
+                  <div class="container border rounded d-none" id="order">
+                    <div class="row justify-content-between p-3">
+                      <div class="align-items-center d-flex">
+                        <p class="m-sm-0 mb-lg-0 mb-2">В корзине есть блюда, можно оформить заказ</p>
+                      </div>
+                      <button type="button" onclick="" id="checkout" class="btn btn-success">Оформить</button>
                     </div>
                   </div>
-                  <h3>Данные доставки</h3>
-                  <div class="form-group">
-                    <label for="date">Время доставки</label>
-                    <input type="datetime-local" class="form-control" id="date" step=1>
-                  </div>
-                  <div class="container border rounded mb-3" id="adressBlock">
-                    <label for="exampleInputAdress1" class="mt-3">Адрес проживания</label>
-                  </div>
-                  <p class="m-0">Список блюд:</p>
-                  <ul class="list-group mb-3">
+                  <h1 class="card-title" id="name">Последние заказы</h1>
+                  <p class="d-none" id="empty">Заказывать нечего</p>
+                  <ul class="list-group">
                   </ul>
-                  <p class="m-0" id="price"></p>
-                  <button type="button" id="confirm" class="btn btn-success">Подтвердить заказ</button>
-                </form>
+                </div>
             </div>
         </main>
       </div>
